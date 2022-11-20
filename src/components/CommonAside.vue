@@ -83,7 +83,11 @@ export default {
         },
         clickMenu (item) {   // 点击菜单
             // console.log(item)
-            this.$router.push(item.path);
+            // 容错处理  ---> 当前页面路由与跳转路由不一致时才允许跳转
+            //          ---> 且当前路由为 home , 跳转路由为 / 时, 不允许跳转
+            if (this.$route.path !== item.path && !(this.$route.path === '/home' && (item.path === '/'))) {
+                this.$router.push(item.path);
+            }
         }
     },
     computed: {
